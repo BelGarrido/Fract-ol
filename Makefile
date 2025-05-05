@@ -1,19 +1,19 @@
 #Nombre del ejecutable
-NAME = graphic_project
+NAME = main
 
 #Archivos fuente
-SRC = graphic_project.c ...
+SRC = main.c fractol_utils.c maths.c
 OBJ = $(SRC:.c=.o)
 
 #MLX42 local
 MLX_DIR = MLX42
-MLX_INC = $(MLX_DIR)/include
-MLX_LIB = $(MLX_DIR)/build
+MLX_INC = $(MLX_DIR)/include/MLX42
+MLX_LIB = $(MLX_DIR)/build/libmlx42.a
 
 #Compilación y flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror I$(MLX_INC)
-LDFLAGS = -L$(MLX_LIB) -lMLX42 -ldl -lglfw -lm -pthread
+CFLAGS = -Wall -Wextra -Werror -I$(MLX_INC)
+LDFLAGS = -L$(MLX_LIB) -ldl -lglfw -pthread -lm
 
 # Compilar cada .c a .o
 %.o: %.c
@@ -34,7 +34,7 @@ re: fclean all
 
 
 
-gcc main.c MLX42/build/libmlx42.a -IMLX42/include -ldl -lglfw -pthread -lm
+#gcc main.c MLX42/build/libmlx42.a -IMLX42/include -ldl -lglfw -pthread -lm
 
 #Busca los headers en MLX42/include además de los directorios estándar
 #	I./MLX42/include
