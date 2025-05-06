@@ -7,6 +7,13 @@ int	main(int argc, char *argv[])
 	{
 		//is correct
 		//comenzar la aplicación
+		t_fractal fractal;
+		fractal.mlx = mlx_init(WIDTH, HEIGHT, "Fract-ol", false);
+		fractal.img = mlx_new_image(fractal.mlx, WIDTH, HEIGHT);
+		fractal.width = WIDTH;
+		fractal.height = HEIGHT;
+		mlx_image_to_window(fractal.mlx, fractal.img, 0, 0);
+
 	}
 	else
 	{

@@ -6,8 +6,24 @@
 #include <unistd.h> // write
 #include <math.h>
 #include "MLX42.h"
+
 #define WIDTH 256
 #define HEIGHT 256
+
+
+/*FRACTAL
+	MLX stuff
+	Image
+	Hooks values
+*/
+
+typedef struct s_fractal
+{
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	int			width;
+    int			height;
+} 			t_fractal;
 
 typedef struct	s_complex 
 {	
