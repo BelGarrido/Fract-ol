@@ -8,12 +8,12 @@ OBJ = $(SRC:.c=.o)
 #MLX42 local
 MLX_DIR = MLX42
 MLX_INC = $(MLX_DIR)/include/MLX42
-MLX_LIB = $(MLX_DIR)/build/libmlx42.a
+MLX_LIB = $(MLX_DIR)/build
 
 #Compilación y flags
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I$(MLX_INC)
-LDFLAGS = -L$(MLX_LIB) -ldl -lglfw -pthread -lm
+LDFLAGS = -L$(MLX_LIB) -lmlx42 -ldl -lglfw -pthread -lm
 
 # Compilar cada .c a .o
 %.o: %.c

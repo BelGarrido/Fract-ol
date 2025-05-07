@@ -31,3 +31,30 @@ From math to code
 	5.If the suite diverges, color the pixel in white.
 		If the suite converges, color the pixel in black.
 */
+
+
+/*********** IMAGEN **************/
+/* typedef struct mlx_image
+{
+	const uint32_t	width;
+	const uint32_t	height;
+	uint8_t*		pixels;
+	mlx_instance_t*	instances;
+	size_t			count;
+	bool			enabled;
+	void*			context;
+}	mlx_image_t; 
+	
+Este campo contiene todos los píxeles de la imagen en formato ARGB, uno tras otro en
+memoria (linealmente), 8 bits por canal × 4 canales = 32 bits = 4 bytes por píxel.
+*/
+
+/*********** PIXELES **************/
+/*
+	fractal.img ->pixels;
+	Cada píxel ocupa 4 bytes (32 bits → uint32_t).
+	En lugar de manipular byte a byte (uint8_t*), es más cómodo trabajar píxel a píxel.
+	uint32_t *pixel_buffer = (uint32_t *)img->pixels;
+	pixel_buffer[y * img->width + x] = 0xFF0000FF; // Azul opaco
+
+*/

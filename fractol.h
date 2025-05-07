@@ -7,9 +7,9 @@
 #include <math.h>
 #include "MLX42.h"
 
-#define WIDTH 256
-#define HEIGHT 256
-
+#define WIDTH 800
+#define HEIGHT 800
+#define HOT_PINK        0xFF66B2  // As the name suggests!
 
 /*FRACTAL
 	MLX stuff
