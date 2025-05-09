@@ -35,7 +35,7 @@ int	main(int argc, char *argv[])
 		uint32_t *pixel_buffer = (uint32_t *)fractal.img->pixels;
 		int y = 0;
 		int x = 0;
-		while (y < 100)
+	/* 	while (y < 100)
 		{
 			x = 0;
 			while(x < 100)
@@ -58,8 +58,10 @@ int	main(int argc, char *argv[])
 				z++;
 			}
 			y++;
-		}
+		} */
 		/*
+
+
 		4. Mantener
 		*/ 
 		mlx_loop(fractal.mlx);
@@ -68,5 +70,30 @@ int	main(int argc, char *argv[])
 	{
 		ft_putstr_fd("Please enter:\n \t./fractol mandelbrot\n\tor\n \t./fractol julia valueX valueY", 1);
 		exit(EXIT_FAILURE );
+	}
+}
+
+int draw_fractal (t_fractal *fractal)
+{
+	int y;
+	int x;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			if (ft_strncmp("mandelbrot"))
+			{
+				build_mandelbrot(fractal, x,y); //TO DO
+			}
+			else if (ft_strncmp("julia"))
+			{
+				build_julia(fractal, x, y); //TO DO
+			}
+			x++;
+		}
+		y++;
 	}
 }

@@ -17,10 +17,10 @@
 
 /*
 From math to code
-	1.Setup the MiniLibX library.
+	1.Setup the MiniLibX library. DONE
 		You can find good resources on how to do this here.
 		
-	2.Create a window, image and all the necessary things in the MiniLibX.
+	2.Create a window, image and all the necessary things in the MiniLibX. DONE
 	
 	3.Iterate through every pixel of the window.
 		See draw_fractal.
@@ -57,4 +57,11 @@ memoria (linealmente), 8 bits por canal × 4 canales = 32 bits = 4 bytes por pí
 	uint32_t *pixel_buffer = (uint32_t *)img->pixels;
 	pixel_buffer[y * img->width + x] = 0xFF0000FF; // Azul opaco
 
+	Dato						¿Dónde se guarda?
+	Color de cada píxel			img->pixels (como uint32_t *)
+	Variables temporales		(x,y,iter)	Locales en el bucle de render
+	Configuración global		(zoom, offset, tipo)	Dentro del t_fractal
+
 */
+
+
