@@ -23,6 +23,7 @@ typedef struct s_fractal
 	mlx_image_t	*img;
 	int			width;
     int			height;
+	double		zoom;
 } 			t_fractal;
 
 typedef struct	s_complex 
@@ -32,6 +33,10 @@ typedef struct	s_complex
 	//	eje y
 	double i;
 }				t_complex;
+
+
+void esc_hook(mlx_key_data_t keydata, void *parameter);
+void zoom_hook(double xdelta, double ydelta, void *parameter);
 
 int	ft_strncmp(char *s1, char *s2, size_t n);
 void	ft_putstr_fd(char *s, int fd);

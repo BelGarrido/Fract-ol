@@ -2,7 +2,7 @@
 * Julia and Mandelbrot
 * Inifite zoom
 * Able to take comand line arg to indicate which fractal to render
-* Able to take line arg to chape Julia, x, y coordinates
+* Able to take line arg to shape Julia, x, y coordinates
 * ESC closes the process with no leaks
 * Click on the X windows, closes the process leaks free
 * 
@@ -65,3 +65,38 @@ memoria (linealmente), 8 bits por canal × 4 canales = 32 bits = 4 bytes por pí
 */
 
 
+V.1. Renderizado
+• Tu programa debe ofrecer los conjuntos de Julia y Mandelbrot.
+• La rueda del ratón hace zoom in y zoom out y lo hace casi infinitamente (dentro
+de los límites del ordenador). Ese es el concepto de un fractal.
+• Debes poder crear un conjunto de Julia diferente mediante los parámetros del programa.
+• Un parámetro se pasará a través de la CLI para definir el tipo de fractal visualizado.
+◦ Puedes usar más parámetros como opciones de renderizado.
+✅ Si no se introduce un parámetro, o si el parámetro es inválido, el programa
+mostrará una lista de parámetros disponibles y terminará correctamente.
+• Debes usar al menos unos pocos colores para mostrar la profundidad de cada
+fractal. Es incluso mejor si te adentras en los efectos psicodélicos.
+--------------------------------------------------------------------------------------------
+V.2. Representación gráfica
+✅ Tu programa tiene que mostrar la imagen en una ventana.
+✅ El manejo de tu ventana debe ser fluido (cambio a otra ventana, minimización y
+demás)
+✅ ESC debe cerrar la ventana y salir del programa de manera limpia.
+✅ Hacer click en la cruz del marco de la ventana debe cerrarla y cerrar el programa
+de manera limpia.
+✅ El uso de images de la MiniLibX es obligatorio.
+
+
+
+/********** ZOOM ***********/
+/*
+📌 ¿Cómo se usa zoom en el dibujo?
+Cuando calcules cada punto del fractal (por ejemplo, mapeando de x, y en pantalla a coordenadas del plano complejo), deberías hacer algo como:
+
+c
+Copy
+Edit
+real = (x - width / 2.0) * scale * fractal->zoom + offset_x;
+imag = (y - height / 2.0) * scale * fractal->zoom + offset_y;
+Así el zoom afecta cómo de “cerca” estás del fractal.
+*/

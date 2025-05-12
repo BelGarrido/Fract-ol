@@ -1,8 +1,8 @@
 #Nombre del ejecutable
-NAME = main
+NAME = fractol
 
 #Archivos fuente
-SRC = main.c fractol_utils.c maths.c
+SRC = fractol.c fractol_utils.c maths.c
 OBJ = $(SRC:.c=.o)
 
 #MLX42 local
