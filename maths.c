@@ -1,37 +1,36 @@
-/* #include "MLX42.h" */
+#include "fractol.h"
 
-/* typedef struct	s_complex 
-{	
-	//	eje x
-	double real;
-	//	eje y
-	double i;
-}				t_complex;
-
-int main()
+/* void build_mandelbrot(int x, int y, t_fractal fractal)
 {
+	//	f(z) = z^2 + c
+	//	z 
 	t_complex	z;
 	//	point
 	t_complex	c;
 	double	temp_real;
 	int i = 0;
 
-	z.real = 0;
-	z.i = 0;
+	z.x = 0.0;
+	z.y = 0.0;
 
-	c.real = 0.25;
-	c.i	= 0.4;
+	c.x = rescale_map(x, -2, +2, WIDTH);;
+	c.y	= rescale_map(y, +2, -1, HEIGHT);;
+
 	while (i < 42)
 	{
-		//	f(z) = z^2 + c
-		//	z 
-		temp_real = (z.real * z.real) - (z.i * z.i);
-		z.i = 2 * z.real * z.i;
-		z.real = temp_real;
-		//	Adding c 
-		z.real = z.real + c.real;
-		z.i = z.i + c.i;
-		printf("iteration nº: %d\n real: %f imaginary: %f\n", i, z.real, z.i);
+		temp_real = (z.x * z.x) - (z.y * z.y);
+		z.y = 2 * z.x * z.y;
+		z.x = temp_real;
+		//	Addyng c 
+		z.x = z.x + c.x;
+		z.y = z.y + c.y;
+
+		uint32_t *pixel_buffer = (uint32_t *)fractal.img->pixels;
+		if ((z.x > -1.5 && z.x < +0.5) && (z.y > -1 && z.y < +1))
+		{
+			pixel_buffer[y * fractal.img->width + x] = 0xFF6600FF;
+			printf("iteration nº: %d\n real: %f imaginary: %f\n", i, z.x, z.y);
+		}
 		i++;
 	}
 } */

@@ -28,17 +28,25 @@ typedef struct s_fractal
 
 typedef struct	s_complex 
 {	
-	//	eje x
-	double real;
-	//	eje y
-	double i;
+	//	eje real
+	double x;
+	//	eje imaginario
+	double y;
 }				t_complex;
 
-
-void esc_hook(mlx_key_data_t keydata, void *parameter);
-void zoom_hook(double xdelta, double ydelta, void *parameter);
-
-int	ft_strncmp(char *s1, char *s2, size_t n);
+/*string utils*/
+int		ft_strncmp(char *s1, char *s2, size_t n);
 void	ft_putstr_fd(char *s, int fd);
+
+/*math*/
+double	rescale_map(double number, double new_min, double new_max, double old_max);
+void build_mandelbrot(int x, int y, t_fractal fractal);
+
+/*hooks*/
+void	esc_hook(mlx_key_data_t keydata, void *parameter);
+void	zoom_hook(double xdelta, double ydelta, void *parameter);
+
+//void draw_square (t_fractal fractal, uint32_t *pixel_buffer);
+int draw_fractal (t_fractal fractal, char *argm);
 
 #endif

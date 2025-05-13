@@ -12,6 +12,9 @@ int	main(int argc, char *argv[])
 		// 1. Inicialización de la ventana
 		// false: tamaño predeterminado / true: pantalla completa (?)
 		fractal.mlx = mlx_init(WIDTH, HEIGHT, "Fract-ol", true);
+
+		/*------------------------------------------------------------------------------*/
+
 		/* 
 		2. Creación y manipulación de imágenes
 		Para acceder y modificar los píxeles de la imagen:
@@ -21,6 +24,8 @@ int	main(int argc, char *argv[])
 			utilizando la fórmula y * width + x.
 		*/
 		fractal.img = mlx_new_image(fractal.mlx, WIDTH, HEIGHT);
+		
+		/*------------------------------------------------------------------------------*/
 		
 		fractal.width = WIDTH;
 		fractal.height = HEIGHT;
@@ -34,38 +39,27 @@ int	main(int argc, char *argv[])
 		*/
 		mlx_image_to_window(fractal.mlx, fractal.img, 0, 0);
 		
-		uint32_t *pixel_buffer = (uint32_t *)fractal.img->pixels;
-		int y = 0;
-		int x = 0;
-		while (y < 100)
-		{
-			x = 0;
-			while(x < 100)
-			{
-				//										0xAARRGGBB
-				pixel_buffer[y * fractal.img->width + x] = 0xFF6600FF;
-				x++;
-			}
-			y++;
-		}
-		int z;
-		y = 0;
-		while (y < 100)
-		{
-			z = 100;
-			while(z < 200)
-			{
-				//										0xAARRGGBB
-				pixel_buffer[y * fractal.img->width + z] = 0xFF1100FF;
-				z++;
-			}
-			y++;
-		}
+		/*------------------------------------------------------------------------------*/
+
+		//uint32_t *pixel_buffer = (uint32_t *)fractal.img->pixels;
+
+		/*------------------------------------------------------------------------------*/
+
+		//draw_square (fractal, pixel_buffer);
+		draw_fractal (fractal, argv[1]);
+
+		/*------------------------------------------------------------------------------*/
 
 		// ESC make the program to finish
 		mlx_key_hook(fractal.mlx, esc_hook, &fractal);
+	
+		/*------------------------------------------------------------------------------*/
+
 		// zoom
-		mlx_scroll_hook(fractal.mlx, zoom_hook, &fractal);
+		//mlx_scroll_hook(fractal.mlx, zoom_hook, &fractal);
+
+		/*------------------------------------------------------------------------------*/
+
 		/*
 		4. Mantener
 		*/ 
@@ -92,18 +86,67 @@ void esc_hook(mlx_key_data_t keydata, void *parameter)
 		mlx_close_window(f->mlx);
 }
 
-void zoom_hook(double xdelta, double ydelta, void *parameter)
+/* void zoom_hook(double xdelta, double ydelta, void *parameter)
 {
 	t_fractal *f = (t_fractal *)parameter;
+
 	xdelta = xdelta * 1;
 	if (ydelta > 0)
-        f->zoom *= 1.1;
+	{
+		 f->zoom *= 1.1;
+	}
     else if (ydelta < 0)
-        f->zoom /= 1.1;
-	/*redraw_fractal(f); // TODO*/
-}
+	{
+		f->zoom /= 1.1;
+	}
+	uint32_t *pixel_buffer = (uint32_t *)f->img->pixels;
+	draw_square(*f, pixel_buffer);
+	redraw_fractal(f); // TODO
+} */
 
-/* int draw_fractal (t_fractal *fractal)
+/* void draw_square (t_fractal fractal, uint32_t *pixel_buffer)
+{
+	int y = 0;
+	int x = 0;
+	int width = fractal.width;
+	int height = fractal.height;
+	int size = (int)(100 * fractal.zoom);
+
+	while (y < size)
+	{
+		x = 0;
+		while(x < size && x < width)
+		{
+			if ((y * width + x) < width * height)
+			{
+			//										0xAARRGGBB
+				pixel_buffer[y * fractal.img->width + x] = 0xFF6600FF;
+					x++;
+			}
+		}
+		y++;
+	}
+
+	int z;
+	y = 0;
+	while (y < size)
+	{
+		z = size;
+		while(z < size * 2 && z < width)
+		{
+			if ((y * width + z) < width * height)
+			{
+			//										0xAARRGGBB
+				pixel_buffer[y * fractal.img->width + z] = 0xFF9970FF;
+				z++;
+			}
+		}
+		y++;
+	}
+}  */
+
+
+int draw_fractal (t_fractal fractal, char *argm)
 {
 	int y;
 	int x;
@@ -114,16 +157,23 @@ void zoom_hook(double xdelta, double ydelta, void *parameter)
 		x = 0;
 		while (x < WIDTH)
 		{
-			if (ft_strncmp("mandelbrot"))
+			if (ft_strncmp(argm, "mandelbrot", 10))
 			{
-				build_mandelbrot(fractal, x,y); //TO DO
+				build_mandelbrot(x, y, fractal);
+				//build_mandelbrot(fractal, x,y); //TO DO
 			}
-			else if (ft_strncmp("julia"))
+			else if (ft_strncmp(argm, "julia", 5))
 			{
-				build_julia(fractal, x, y); //TO DO
+				//build_julia(fractal, x, y); //TO DO
 			}
 			x++;
 		}
 		y++;
 	}
+	return 0;
+}
+
+/* void build_mandelbrot ()
+{
+
 } */
