@@ -1,7 +1,34 @@
 // copilot: disable
 #include "fractol.h"
 
-/* int	main(int argc, char *argv[])
+int draw_fractal (t_fractal *fractal)
+{
+	int y;
+	int x;
+	
+	uint32_t *pixel_buffer = (uint32_t *)fractal->img->pixels;
+	pixel_buffer[100 * fractal->img->width + 100] = 0xFF0000FF;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			if (fractal->type == 1)
+				build_mandelbrot(x, y, fractal);
+			else if (fractal->type == 2)
+			{
+					//build_julia(fractal, x, y); //TO DO
+			}
+			x++;
+		}
+		y++;
+	}
+	return 0;
+}
+
+int	main(int argc, char *argv[])
 {
 	if ((argc == 2 && !ft_strncmp(argv[1], "mandelbrot", 10))
 	|| (argc == 4 && !ft_strncmp(argv[1], "julia", 5)))
@@ -41,9 +68,9 @@
 		ft_putstr_fd("Please enter:\n \t./fractol mandelbrot\n\tor\n \t./fractol julia valueX valueY", 1);
 		exit(EXIT_FAILURE );
 	}
-} */
+}
 
-int main(void)
+/* int main(void)
 {
     void *mlx = mlx_init(800, 600, "Test Window", true);
     if (!mlx)
@@ -66,7 +93,7 @@ int main(void)
 
     mlx_loop(mlx);
     return 0;
-}
+} */
 
 /* ESC debe cerrar la ventana y salir del programa de manera limpia.
 	1- escribir la función que maneja la tecla ESC
@@ -142,32 +169,7 @@ void esc_hook(mlx_key_data_t keydata, void *parameter)
 }  */
 
 
-int draw_fractal (t_fractal *fractal)
-{
-	int y;
-	int x;
-	
-	uint32_t *pixel_buffer = (uint32_t *)fractal->img->pixels;
-	pixel_buffer[100 * fractal->img->width + 100] = 0xFF0000FF;
 
-	y = 0;
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			if (fractal->type == 1)
-				build_mandelbrot(x, y, fractal);
-			else if (fractal->type == 2)
-			{
-					//build_julia(fractal, x, y); //TO DO
-			}
-			x++;
-		}
-		y++;
-	}
-	return 0;
-}
 
 /* void build_mandelbrot ()
 {

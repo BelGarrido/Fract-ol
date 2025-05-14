@@ -27,7 +27,7 @@ void build_mandelbrot(int x, int y, t_fractal *fractal)
 	z.x = 0.0;
 	z.y = 0.0;
 	c.x = rescale_map(x, -2, +2, WIDTH);
-	c.y	= rescale_map(y, +2, -1, HEIGHT);
+	c.y	= rescale_map(y, +2, -2, HEIGHT);
 	while ((i < 42) && (z.x * z.x + z.y * z.y < 4))
 	{
 		temp_real = (z.x * z.x) - (z.y * z.y);
@@ -41,12 +41,12 @@ void build_mandelbrot(int x, int y, t_fractal *fractal)
 	{
 		if (i == 42)
 		{
-			printf("iteration nº: %d\n real: %f imaginary: %f\n", i, z.x, z.y);
-			pixel_buffer[y * fractal->img->width + x] = 0x000000FF;
+		//	printf("iteration nº: %d\n real: %f imaginary: %f\n", i, z.x, z.y);
+			pixel_buffer[y * fractal->img->width + x] = 0xFF0000FF;
 		}
 		else
 		{
-			printf("#######################\n");
+		//	printf("#######################\n");
 			pixel_buffer[y * fractal->img->width + x] = 0x005800FF;
 			//pixel_buffer[y * fractal->img->width + x] = get_color_from_iterations(i);
 		}	
