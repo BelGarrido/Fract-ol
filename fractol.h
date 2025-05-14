@@ -24,7 +24,10 @@ typedef struct s_fractal
 	int			width;
     int			height;
 	double		zoom;
-} 			t_fractal;
+	int 		type;
+	//	mandelbrot = 1
+	//	julia = 2
+	} 			t_fractal;
 
 typedef struct	s_complex 
 {	
@@ -40,13 +43,14 @@ void	ft_putstr_fd(char *s, int fd);
 
 /*math*/
 double	rescale_map(double number, double new_min, double new_max, double old_max);
-void build_mandelbrot(int x, int y, t_fractal fractal);
+void	build_mandelbrot(int x, int y, t_fractal *fractal);
 
 /*hooks*/
 void	esc_hook(mlx_key_data_t keydata, void *parameter);
 void	zoom_hook(double xdelta, double ydelta, void *parameter);
 
 //void draw_square (t_fractal fractal, uint32_t *pixel_buffer);
-int draw_fractal (t_fractal fractal, char *argm);
+int	draw_fractal (t_fractal *fractal);
+//void render_frame(void *param);
 
 #endif

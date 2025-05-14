@@ -12,8 +12,14 @@
 *
 */
 
+/*********** MATHS **************/
 
-
+/* En el conjunto de Mandelbrot, los puntos que se mantienen cerca del origen (que no se
+alejan más allá de distancia 2, es decir, |z| <= 2) pertenecen al conjunto.
+Si |z| se hace mayor a 2 → el punto se escapa → no es parte del conjunto
+Por eficiencia, usamos:
+x^2 + y^2 > 4
+*/
 
 /*
 From math to code
@@ -63,29 +69,6 @@ memoria (linealmente), 8 bits por canal × 4 canales = 32 bits = 4 bytes por pí
 	Configuración global		(zoom, offset, tipo)	Dentro del t_fractal
 
 */
-
-
-V.1. Renderizado
-• Tu programa debe ofrecer los conjuntos de Julia y Mandelbrot.
-• La rueda del ratón hace zoom in y zoom out y lo hace casi infinitamente (dentro
-de los límites del ordenador). Ese es el concepto de un fractal.
-• Debes poder crear un conjunto de Julia diferente mediante los parámetros del programa.
-• Un parámetro se pasará a través de la CLI para definir el tipo de fractal visualizado.
-◦ Puedes usar más parámetros como opciones de renderizado.
-✅ Si no se introduce un parámetro, o si el parámetro es inválido, el programa
-mostrará una lista de parámetros disponibles y terminará correctamente.
-• Debes usar al menos unos pocos colores para mostrar la profundidad de cada
-fractal. Es incluso mejor si te adentras en los efectos psicodélicos.
---------------------------------------------------------------------------------------------
-V.2. Representación gráfica
-✅ Tu programa tiene que mostrar la imagen en una ventana.
-✅ El manejo de tu ventana debe ser fluido (cambio a otra ventana, minimización y
-demás)
-✅ ESC debe cerrar la ventana y salir del programa de manera limpia.
-✅ Hacer click en la cruz del marco de la ventana debe cerrarla y cerrar el programa
-de manera limpia.
-✅ El uso de images de la MiniLibX es obligatorio.
-
 
 
 /********** ZOOM ***********/
