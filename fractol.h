@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/15 11:40:26 by anagarri          #+#    #+#             */
+/*   Updated: 2025/05/15 14:36:29 by anagarri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 # ifndef FRACTOL_H
 # define FRACTOL_H
 
@@ -9,13 +22,6 @@
 
 #define WIDTH 800
 #define HEIGHT 800
-#define HOT_PINK        0xFF66B2  // As the name suggests!
-
-/*FRACTAL
-	MLX stuff
-	Image
-	Hooks values
-*/
 
 typedef struct s_fractal
 {
@@ -25,6 +31,8 @@ typedef struct s_fractal
     int			height;
 	double		zoom;
 	int 		type;
+	double		julia_cx;
+	double		julia_cy;
 	//	mandelbrot = 1
 	//	julia = 2
 	} 			t_fractal;
@@ -38,19 +46,22 @@ typedef struct	s_complex
 }				t_complex;
 
 /*string utils*/
-int		ft_strncmp(char *s1, char *s2, size_t n);
-void	ft_putstr_fd(char *s, int fd);
+int				ft_strncmp(char *s1, char *s2, size_t n);
+void			ft_putstr_fd(char *s, int fd);
+double				ft_atoi(const char *s);
 
 /*math*/
-double	rescale_map(double number, double new_min, double new_max, double old_max);
-void	build_mandelbrot(int x, int y, t_fractal *fractal);
+double			rescale_map(double number, double new_min, double new_max, double old_max);
+void			build_mandelbrot(int x, int y, t_fractal *fractal);
+void			build_julia(int x, int y, t_fractal *fractal);
 
 /*hooks*/
-void	esc_hook(mlx_key_data_t keydata, void *parameter);
-void	zoom_hook(double xdelta, double ydelta, void *parameter);
+void			esc_hook(mlx_key_data_t keydata, void *parameter);
+void			zoom_hook(double xdelta, double ydelta, void *parameter);
 
 //void draw_square (t_fractal fractal, uint32_t *pixel_buffer);
-int	draw_fractal (t_fractal *fractal);
+int				draw_fractal (t_fractal *fractal);
+unsigned int	get_color_iterations(int i, int iterations);
 //void render_frame(void *param);
 
 #endif

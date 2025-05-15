@@ -1,4 +1,15 @@
-// copilot: disable
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/15 11:39:58 by anagarri          #+#    #+#             */
+/*   Updated: 2025/05/15 14:14:38 by anagarri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
 int draw_fractal (t_fractal *fractal)
@@ -6,9 +17,6 @@ int draw_fractal (t_fractal *fractal)
 	int y;
 	int x;
 	
-	uint32_t *pixel_buffer = (uint32_t *)fractal->img->pixels;
-	pixel_buffer[100 * fractal->img->width + 100] = 0xFF0000FF;
-
 	y = 0;
 	while (y < HEIGHT)
 	{
@@ -18,9 +26,7 @@ int draw_fractal (t_fractal *fractal)
 			if (fractal->type == 1)
 				build_mandelbrot(x, y, fractal);
 			else if (fractal->type == 2)
-			{
-					//build_julia(fractal, x, y); //TO DO
-			}
+				build_julia(x, y, fractal);
 			x++;
 		}
 		y++;
@@ -33,14 +39,18 @@ int	main(int argc, char *argv[])
 	if ((argc == 2 && !ft_strncmp(argv[1], "mandelbrot", 10))
 	|| (argc == 4 && !ft_strncmp(argv[1], "julia", 5)))
 	{
-		t_fractal fractal;
+		t_fractal	fractal;
+		
 		if (!ft_strncmp(argv[1], "mandelbrot", 10))
 			fractal.type = 1;
 		else if (!ft_strncmp(argv[1], "julia", 5))
+		{
 			fractal.type = 2;
+			fractal.julia_cx = ft_atoi(argv[2]);
+			fractal.julia_cy = ft_atoi(argv[3]);
+		}
 		fractal.zoom = 1.0;
 		fractal.mlx = mlx_init(WIDTH, HEIGHT, "Fract-ol", true);
-
 		fractal.img = mlx_new_image(fractal.mlx, WIDTH, HEIGHT);
 		if (!fractal.img)
 		{
@@ -49,11 +59,7 @@ int	main(int argc, char *argv[])
 		}
 		fractal.width = WIDTH;
 		fractal.height = HEIGHT;
-
 		mlx_image_to_window(fractal.mlx, fractal.img, 0, 0);
-		uint32_t *pixels = (uint32_t *)fractal.img->pixels;
-		pixels[100 * fractal.img->width + 100] = 0xFF0000FF; // draw blue pixel
-
 		draw_fractal (&fractal);
 		mlx_key_hook(fractal.mlx, esc_hook, &fractal);
 
@@ -69,31 +75,6 @@ int	main(int argc, char *argv[])
 		exit(EXIT_FAILURE );
 	}
 }
-
-/* int main(void)
-{
-    void *mlx = mlx_init(800, 600, "Test Window", true);
-    if (!mlx)
-    {
-        printf("Error: No se pudo inicializar MiniLibX\n");
-        return 1;
-    }
-
-    mlx_image_t *img = mlx_new_image(mlx, 800, 600);
-    if (!img)
-    {
-        printf("Error: No se pudo crear la imagen\n");
-        return 1;
-    }
-
-    mlx_image_to_window(mlx, img, 0, 0);
-
-    uint32_t *pixels = (uint32_t *)img->pixels;
-    pixels[100 * 800 + 100] = 0xFF0000FF; // Pinta un píxel azul
-
-    mlx_loop(mlx);
-    return 0;
-} */
 
 /* ESC debe cerrar la ventana y salir del programa de manera limpia.
 	1- escribir la función que maneja la tecla ESC
@@ -125,53 +106,4 @@ void esc_hook(mlx_key_data_t keydata, void *parameter)
 	uint32_t *pixel_buffer = (uint32_t *)f->img->pixels;
 	draw_square(*f, pixel_buffer);
 	redraw_fractal(f); // TODO
-} */
-
-/* void draw_square (t_fractal fractal, uint32_t *pixel_buffer)
-{
-	int y = 0;
-	int x = 0;
-	int width = fractal.width;
-	int height = fractal.height;
-	int size = (int)(100 * fractal.zoom);
-
-	while (y < size)
-	{
-		x = 0;
-		while(x < size && x < width)
-		{
-			if ((y * width + x) < width * height)
-			{
-			//										0xAARRGGBB
-				pixel_buffer[y * fractal.img->width + x] = 0xFF6600FF;
-					x++;
-			}
-		}
-		y++;
-	}
-
-	int z;
-	y = 0;
-	while (y < size)
-	{
-		z = size;
-		while(z < size * 2 && z < width)
-		{
-			if ((y * width + z) < width * height)
-			{
-			//										0xAARRGGBB
-				pixel_buffer[y * fractal.img->width + z] = 0xFF9970FF;
-				z++;
-			}
-		}
-		y++;
-	}
-}  */
-
-
-
-
-/* void build_mandelbrot ()
-{
-
 } */
