@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:40:15 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/15 15:15:07 by anagarri         ###   ########.fr       */
+/*   Updated: 2025/05/18 20:44:47 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,11 @@ void build_julia(int x, int y, t_fractal *fractal)
 	int i;
 	int iterations;
 	
-	iterations = 100;
+	iterations = 500;
 	i = 0;
-	c.x = (double)fractal->julia_cx;
-	c.y = (double)fractal->julia_cy;
-	
+	c.x = fractal->julia_cx;
+	c.y = fractal->julia_cy;
+
 	z.x = rescale_map(x, -2, +2, WIDTH);
 	z.y	= rescale_map(y, +2, -2, HEIGHT);
 	while ((i < iterations) && (z.x * z.x + z.y * z.y < 4))
@@ -118,16 +118,14 @@ void build_julia(int x, int y, t_fractal *fractal)
 		z.x = temp_real + c.x;
 		i++;
 	}
-	uint32_t *pixel_buffer = (uint32_t *)fractal->img->pixels;
 	if((x >= 0 && x < WIDTH) && (y >= 0 && y < HEIGHT))
 	{
 		if (i == iterations)
 		{
-		//												ABGR
-			pixel_buffer[y * fractal->img->width + x] = 0xFF000000;
+			mlx_put_pixel(fractal->img, x, y, 0x0000FFFF);
 		}
 		else
-			pixel_buffer[y * fractal->img->width + x] = get_color_iterations(i, iterations);
+			mlx_put_pixel(fractal->img, x, y, get_color_iterations(i, iterations));
 	}
 	else
 		ft_putstr_fd("Error painting pixels\n", 1);
@@ -180,14 +178,14 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 /*******ascii to int*******/
-double	ft_atoi(const char *s)
+double	ft_atof(const char *s)
 {
 	int	i;
 	double	neg;
 	double	number;
-	double decimal_number;
+	double decimal;
 
-	decimal_number = 0.1;
+	decimal= 0.1;
 	i = 0;
 	neg = 1;
 	number = 0;
@@ -196,21 +194,17 @@ double	ft_atoi(const char *s)
 	if (s [i] == '+' || s[i] == '-')
 	{
 		if (s[i] == '-')
-			neg = -neg;
+			neg = -1;
 		i++;
 	}
 	while (s[i] >= '0' && s[i] <= '9')
-	{
-		number = number * 10 + s[i] - '0';
-		i++;
-	}
+		number = number * 10 + s[i++] - '0';
 	if (s[i] == '.')
 		i++;
 	while (s[i] >= '0' && s[i] <= '9')
 	{
-		number = (number + s[i] - '0') * decimal_number;;
-		decimal_number = decimal_number * 0.1;
-		i++;
+		number = number + (s[i++] - '0') * decimal;
+		decimal = decimal * 0.1;
 	}
 	return (number * neg);
 }
