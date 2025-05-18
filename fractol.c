@@ -6,13 +6,13 @@
 /*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:39:58 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/16 12:52:09 by anagarri         ###   ########.fr       */
+/*   Updated: 2025/05/15 14:14:38 by anagarri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int draw_fractal(t_fractal *fractal)
+int draw_fractal (t_fractal *fractal)
 {
 	int y;
 	int x;
@@ -31,30 +31,7 @@ int draw_fractal(t_fractal *fractal)
 		}
 		y++;
 	}
-	return (0);
-}
-
-void fractal_init(t_fractal *fractal)
-{
-	fractal->zoom = 1.0;
-	fractal->mlx = mlx_init(WIDTH, HEIGHT, "Fract-ol", true);
-	if (!fractal->mlx)
-	{
-		ft_putstr_fd("Error: mlx could not be initialised\n", 2);
-		exit(EXIT_FAILURE);
-	}
-	fractal->img = mlx_new_image(fractal->mlx, WIDTH, HEIGHT);
-	if (!fractal->img)
-	{
-		ft_putstr_fd("Error: image could not be created\n", 2);
-		exit(EXIT_FAILURE);
-	}
-	/* fractal->monitor_heigth;
-	fractal->monitor_width;
-	mlx_get_monitor_size(0, fractal->monitor_width, fractal->monitor_heigth);
-	fractal->width = WIDTH; */
-	fractal->height = HEIGHT;
-	//mlx_image_to_window(fractal->mlx, fractal->img, 0, 0);
+	return 0;
 }
 
 int	main(int argc, char *argv[])
@@ -69,19 +46,28 @@ int	main(int argc, char *argv[])
 		else if (!ft_strncmp(argv[1], "julia", 5))
 		{
 			fractal.type = 2;
-			fractal.julia_cx = ft_atof(argv[2]);
-			fractal.julia_cy = ft_atof(argv[3]);
+			fractal.julia_cx = ft_atoi(argv[2]);
+			fractal.julia_cy = ft_atoi(argv[3]);
 		}
-		
-		fractal_init(&fractal);
+		fractal.zoom = 1.0;
+		fractal.mlx = mlx_init(WIDTH, HEIGHT, "Fract-ol", true);
+		fractal.img = mlx_new_image(fractal.mlx, WIDTH, HEIGHT);
+		if (!fractal.img)
+		{
+			ft_putstr_fd("Error: no se pudo crear la imagen\n", 2);
+			exit(EXIT_FAILURE);
+		}
+		fractal.width = WIDTH;
+		fractal.height = HEIGHT;
+		mlx_image_to_window(fractal.mlx, fractal.img, 0, 0);
 		draw_fractal (&fractal);
-		/* int pos_x = (*fractal.monitor_width - fractal.img->width) / 2;
-		int pos_y = (*fractal.monitor_heigth - fractal.img->height) / 2;
-		mlx_image_to_window(fractal.mlx, fractal.img, pos_x, pos_y); */
 		mlx_key_hook(fractal.mlx, esc_hook, &fractal);
-		mlx_scroll_hook(fractal.mlx, zoom_hook, &fractal);
+
+		// zoom
+		//mlx_scroll_hook(fractal.mlx, zoom_hook, &fractal);
+
+		//mlx_loop_hook(fractal.mlx, render_frame, &fractal);
 		mlx_loop(fractal.mlx);
-		mlx_terminate(fractal.mlx);
 	}
 	else
 	{
@@ -90,21 +76,34 @@ int	main(int argc, char *argv[])
 	}
 }
 
+/* ESC debe cerrar la ventana y salir del programa de manera limpia.
+	1- escribir la función que maneja la tecla ESC
+	* Callback function used to handle keypresses.
+	* 
+	* @param[in] keydata The callback data, contains info on key, action, ...
+	* @param[in] parameter s un puntero que pasas tú (en este caso, al struct t_fractal)..
+	*/
 void esc_hook(mlx_key_data_t keydata, void *parameter)
 {
-	t_fractal *f = parameter;
+	t_fractal *f = (t_fractal *)parameter;
 	if(keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(f->mlx);
 }
 
-void zoom_hook(double xdelta, double ydelta, void *parameter)
+/* void zoom_hook(double xdelta, double ydelta, void *parameter)
 {
 	t_fractal *f = (t_fractal *)parameter;
 
 	xdelta = xdelta * 1;
 	if (ydelta > 0)
+	{
 		 f->zoom *= 1.1;
+	}
     else if (ydelta < 0)
+	{
 		f->zoom /= 1.1;
-	draw_fractal (f);
-}
+	}
+	uint32_t *pixel_buffer = (uint32_t *)f->img->pixels;
+	draw_square(*f, pixel_buffer);
+	redraw_fractal(f); // TODO
+} */

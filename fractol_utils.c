@@ -6,7 +6,7 @@
 /*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:40:15 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/16 11:14:59 by anagarri         ###   ########.fr       */
+/*   Updated: 2025/05/15 15:15:07 by anagarri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ void build_mandelbrot(int x, int y, t_fractal *fractal)
 	int i;
 	int iterations;
 	
-	iterations = 500;
+	iterations = 100;
 	i = 0;
 	z.x = 0.0;
 	z.y = 0.0;
-	c.x = rescale_map(x, (-2 *fractal->zoom), (+2 *fractal->zoom), WIDTH);
-	c.y	= rescale_map(y, (+2 *fractal->zoom), (-2 *fractal->zoom), HEIGHT);
+	c.x = rescale_map(x, -2, +2, WIDTH);
+	c.y	= rescale_map(y, +2, -2, HEIGHT);
 	while ((i < iterations) && (z.x * z.x + z.y * z.y < 4))
 	{
 		temp_real = (z.x * z.x) - (z.y * z.y);
@@ -81,8 +81,10 @@ void build_mandelbrot(int x, int y, t_fractal *fractal)
 	if ((x >= 0 && x < WIDTH) && (y >= 0 && y < HEIGHT))
 	{
 		if (i == iterations)
+		{
 			mlx_put_pixel(fractal->img, x, y, 0x0000FFFF);
 
+		}
 		else
 			mlx_put_pixel(fractal->img, x, y, get_color_iterations(i, iterations));
 	}
@@ -102,10 +104,11 @@ void build_julia(int x, int y, t_fractal *fractal)
 	int i;
 	int iterations;
 	
-	iterations = 500;
+	iterations = 100;
 	i = 0;
-	c.x = fractal->julia_cx;
-	c.y = fractal->julia_cy;
+	c.x = (double)fractal->julia_cx;
+	c.y = (double)fractal->julia_cy;
+	
 	z.x = rescale_map(x, -2, +2, WIDTH);
 	z.y	= rescale_map(y, +2, -2, HEIGHT);
 	while ((i < iterations) && (z.x * z.x + z.y * z.y < 4))
@@ -115,10 +118,17 @@ void build_julia(int x, int y, t_fractal *fractal)
 		z.x = temp_real + c.x;
 		i++;
 	}
-	if (i == iterations && (x >= 0 && x < WIDTH) && (y >= 0 && y < HEIGHT))
-		mlx_put_pixel(fractal->img, x, y, 0x0000FFFF);
-	else if ((x >= 0 && x < WIDTH) && (y >= 0 && y < HEIGHT))
-		mlx_put_pixel(fractal->img, x, y, get_color_iterations(i, iterations));
+	uint32_t *pixel_buffer = (uint32_t *)fractal->img->pixels;
+	if((x >= 0 && x < WIDTH) && (y >= 0 && y < HEIGHT))
+	{
+		if (i == iterations)
+		{
+		//												ABGR
+			pixel_buffer[y * fractal->img->width + x] = 0xFF000000;
+		}
+		else
+			pixel_buffer[y * fractal->img->width + x] = get_color_iterations(i, iterations);
+	}
 	else
 		ft_putstr_fd("Error painting pixels\n", 1);
 }	
@@ -169,16 +179,15 @@ void	ft_putstr_fd(char *s, int fd)
 		i++;
 	}
 }
-
 /*******ascii to int*******/
-double	ft_atof(const char *s)
+double	ft_atoi(const char *s)
 {
 	int	i;
 	double	neg;
 	double	number;
-	double decimal;
+	double decimal_number;
 
-	decimal= 0.1;
+	decimal_number = 0.1;
 	i = 0;
 	neg = 1;
 	number = 0;
@@ -187,18 +196,21 @@ double	ft_atof(const char *s)
 	if (s [i] == '+' || s[i] == '-')
 	{
 		if (s[i] == '-')
-			neg = -1;
+			neg = -neg;
 		i++;
 	}
 	while (s[i] >= '0' && s[i] <= '9')
-		number = number * 10 + s[i++] - '0';
+	{
+		number = number * 10 + s[i] - '0';
+		i++;
+	}
 	if (s[i] == '.')
 		i++;
 	while (s[i] >= '0' && s[i] <= '9')
 	{
-		number = number + (s[i++] - '0') * decimal;
-		decimal = decimal * 0.1;
+		number = (number + s[i] - '0') * decimal_number;;
+		decimal_number = decimal_number * 0.1;
+		i++;
 	}
 	return (number * neg);
 }
-
