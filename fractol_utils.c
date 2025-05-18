@@ -6,7 +6,7 @@
 /*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:40:15 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/18 20:44:47 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/05/18 22:11:33 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ unsigned int	get_color_iterations(int i, int iterations)
 	else
 	{
 		// Negro -- farest to mandelbrot set
-		return (0xFF000000);
+		return (0xFFFFFFFF);
 	}
 }
 
@@ -70,7 +70,7 @@ void build_mandelbrot(int x, int y, t_fractal *fractal)
 	z.x = 0.0;
 	z.y = 0.0;
 	c.x = rescale_map(x, -2, +2, WIDTH);
-	c.y	= rescale_map(y, +2, -2, HEIGHT);
+	c.y	= rescale_map(y, -2, +2, HEIGHT);
 	while ((i < iterations) && (z.x * z.x + z.y * z.y < 4))
 	{
 		temp_real = (z.x * z.x) - (z.y * z.y);
@@ -104,13 +104,13 @@ void build_julia(int x, int y, t_fractal *fractal)
 	int i;
 	int iterations;
 	
-	iterations = 500;
+	iterations = 300;
 	i = 0;
 	c.x = fractal->julia_cx;
 	c.y = fractal->julia_cy;
 
 	z.x = rescale_map(x, -2, +2, WIDTH);
-	z.y	= rescale_map(y, +2, -2, HEIGHT);
+	z.y	= rescale_map(y, -2, +2, HEIGHT);
 	while ((i < iterations) && (z.x * z.x + z.y * z.y < 4))
 	{
 		temp_real = (z.x * z.x) - (z.y * z.y);

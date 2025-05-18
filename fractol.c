@@ -6,7 +6,7 @@
 /*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:39:58 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/18 20:27:26 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/05/18 21:12:21 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	main(int argc, char *argv[])
 			fractal.julia_cx = ft_atof(argv[2]);
 			fractal.julia_cy = ft_atof(argv[3]);
 		}
+		printf("x: %f // y: %f\n", fractal.julia_cx, fractal.julia_cy);
 		fractal.zoom = 1.0;
 		fractal.mlx = mlx_init(WIDTH, HEIGHT, "Fract-ol", true);
 		fractal.img = mlx_new_image(fractal.mlx, WIDTH, HEIGHT);
