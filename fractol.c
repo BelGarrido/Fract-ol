@@ -6,7 +6,7 @@
 /*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:39:58 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/19 15:14:11 by anagarri         ###   ########.fr       */
+/*   Updated: 2025/05/19 15:16:41 by anagarri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int draw_fractal (t_fractal *fractal)
 	int x;
 	
 	y = 0;
-	while (y < HEIGHT)
+	while (y < fractal->height)
 	{
 		x = 0;
-		while (x < WIDTH)
+		while (x < fractal->width)
 		{
 			if (fractal->type == 1)
 				build_mandelbrot(x, y, fractal);
