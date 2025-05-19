@@ -1,0 +1,6 @@
+*.o
+server
+client
+*.a
+.txt
+.vscode

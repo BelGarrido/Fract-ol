@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
+/*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:40:26 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/18 20:27:03 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/05/19 11:30:09 by anagarri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void			zoom_hook(double xdelta, double ydelta, void *parameter);
 
 //void draw_square (t_fractal fractal, uint32_t *pixel_buffer);
 int				draw_fractal (t_fractal *fractal);
-unsigned int	get_color_iterations(int i, int iterations);
+unsigned int	get_color_iterations(double i, double iterations);
 //void render_frame(void *param);
 
 #endif

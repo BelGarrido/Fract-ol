@@ -9,8 +9,8 @@
 - [✅] Solo se permite el uso de la librería **MLX42**
 - [ ] Sin fugas de memoria (valgrind clean)
 - [ ] Código norminette compliant
-- [ ] `make` compila sin errores ni warnings
-- [ ] `ESC` o cerrar ventana finaliza el programa correctamente
+- [✅] `make` compila sin errores ni warnings
+- [✅] `ESC` o cerrar ventana finaliza el programa correctamente
 
 ---
 
@@ -44,8 +44,8 @@
 
 ## 🔹 5. Fractales Obligatorios
 
-- [ ] Mandelbrot
-- [ ] Julia
+- [✅] Mandelbrot
+- [✅] Julia
 - [ ] (Bonus) Burning Ship
 
 ---

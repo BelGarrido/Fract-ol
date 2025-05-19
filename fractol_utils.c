@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
+/*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:40:15 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/18 22:11:33 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/05/19 12:30:51 by anagarri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,21 @@
 #include "fractol.h"
 
 /*******Color fractal based in interactions*******/
-unsigned int	get_color_iterations(int i, int iterations)
+unsigned int	get_color_iterations(double i, double iterations)
 {
-	if(i <= iterations && i >= iterations/4)
+	double t;
+	unsigned int rgba;
+
+	t = i/iterations;
+	rgba = 0;
+
+	rgba |= (((unsigned int)(255 * (9 * (1 - t) * t * t * t)) & 0xFF) << 24); //R 
+	rgba |= (((unsigned int)(255 * (15 * (1 - t) * (1 - t) * t * t)) & 0xFF) << 16); //G
+	rgba |= (((unsigned int)(255 * (8.5 * (1 - t) * (1 - t) * (1 - t) * t)) & 0xFF) << 8); //B
+	rgba |=  255;
+	//printf("%u\n", rgba);
+	return (rgba);
+/* 	if(i <= iterations && i >= iterations/4)
 	{
 		// Turquesa -- nearest to mandelbrot set
 		return (0xFFD9D93F);
@@ -50,7 +62,7 @@ unsigned int	get_color_iterations(int i, int iterations)
 	{
 		// Negro -- farest to mandelbrot set
 		return (0xFFFFFFFF);
-	}
+	} */
 }
 
 /*******mandelbrot*******/
@@ -65,7 +77,7 @@ void build_mandelbrot(int x, int y, t_fractal *fractal)
 	int i;
 	int iterations;
 	
-	iterations = 100;
+	iterations = 400;
 	i = 0;
 	z.x = 0.0;
 	z.y = 0.0;
@@ -82,7 +94,7 @@ void build_mandelbrot(int x, int y, t_fractal *fractal)
 	{
 		if (i == iterations)
 		{
-			mlx_put_pixel(fractal->img, x, y, 0x0000FFFF);
+			mlx_put_pixel(fractal->img, x, y, 0x000000FF);
 
 		}
 		else
@@ -101,8 +113,8 @@ void build_julia(int x, int y, t_fractal *fractal)
 	t_complex	z;
 	t_complex	c;
 	double	temp_real;
-	int i;
-	int iterations;
+	double i;
+	double iterations;
 	
 	iterations = 300;
 	i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
+/*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:39:58 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/18 21:12:21 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/05/19 14:27:36 by anagarri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,9 @@ int	main(int argc, char *argv[])
 		mlx_image_to_window(fractal.mlx, fractal.img, 0, 0);
 		draw_fractal (&fractal);
 		mlx_key_hook(fractal.mlx, esc_hook, &fractal);
-
 		// zoom
-		//mlx_scroll_hook(fractal.mlx, zoom_hook, &fractal);
-
+		mlx_scroll_hook(fractal.mlx, zoom_hook, &fractal);
+		//mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param);
 		//mlx_loop_hook(fractal.mlx, render_frame, &fractal);
 		mlx_loop(fractal.mlx);
 	}
@@ -90,6 +89,29 @@ void esc_hook(mlx_key_data_t keydata, void *parameter)
 	if(keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(f->mlx);
 }
+
+void zoom_hook(double xdelta, double ydelta, void *parameter)
+{
+	t_fractal *f = parameter;
+
+	xdelta = xdelta * 1;
+	if (ydelta > 0)
+		 f->zoom *= 1.1;
+    else if (ydelta < 0)
+		f->zoom /= 1.1;
+	draw_fractal(f);
+}
+
+
+/**
+ * This function sets the resize callback, which is called when the window is
+ * resized
+ * 
+ * @param[in] mlx The MLX instance handle.
+ * @param[in] func The resize callback function.
+ * @param[in] param An additional optional parameter.
+
+void mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param); */
 
 /* void zoom_hook(double xdelta, double ydelta, void *parameter)
 {
