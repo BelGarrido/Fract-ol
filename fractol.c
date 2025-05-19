@@ -6,7 +6,7 @@
 /*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:39:58 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/19 14:27:36 by anagarri         ###   ########.fr       */
+/*   Updated: 2025/05/19 15:14:11 by anagarri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,22 @@ int	main(int argc, char *argv[])
 		}
 		printf("x: %f // y: %f\n", fractal.julia_cx, fractal.julia_cy);
 		fractal.zoom = 1.0;
-		fractal.mlx = mlx_init(WIDTH, HEIGHT, "Fract-ol", true);
-		fractal.img = mlx_new_image(fractal.mlx, WIDTH, HEIGHT);
+		fractal.width = WIDTH;
+		fractal.height = HEIGHT;
+		fractal.mlx = mlx_init(fractal.width, fractal.height, "Fract-ol", true);
+		fractal.img = mlx_new_image(fractal.mlx, fractal.width, fractal.height);
 		if (!fractal.img)
 		{
 			ft_putstr_fd("Error: no se pudo crear la imagen\n", 2);
 			exit(EXIT_FAILURE);
 		}
-		fractal.width = WIDTH;
-		fractal.height = HEIGHT;
+
 		mlx_image_to_window(fractal.mlx, fractal.img, 0, 0);
 		draw_fractal (&fractal);
 		mlx_key_hook(fractal.mlx, esc_hook, &fractal);
 		// zoom
-		mlx_scroll_hook(fractal.mlx, zoom_hook, &fractal);
-		//mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param);
+		//mlx_scroll_hook(fractal.mlx, zoom_hook, &fractal);
+		mlx_resize_hook(fractal.mlx, resize_hook, &fractal);
 		//mlx_loop_hook(fractal.mlx, render_frame, &fractal);
 		mlx_loop(fractal.mlx);
 	}
@@ -102,16 +103,19 @@ void zoom_hook(double xdelta, double ydelta, void *parameter)
 	draw_fractal(f);
 }
 
+void resize_hook(int32_t width, int32_t height, void* parameter)
+{
+	t_fractal *f;
+	printf("resize function\n");
+	f = (t_fractal *)parameter;
+	f->height = height;
+	f->width = width;
+	mlx_delete_image(f->mlx, f->img);
+	f->img = mlx_new_image(f->mlx, width, height);
+	draw_fractal(f);
+	mlx_image_to_window(f->mlx, f->img, 0, 0);
+}
 
-/**
- * This function sets the resize callback, which is called when the window is
- * resized
- * 
- * @param[in] mlx The MLX instance handle.
- * @param[in] func The resize callback function.
- * @param[in] param An additional optional parameter.
-
-void mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param); */
 
 /* void zoom_hook(double xdelta, double ydelta, void *parameter)
 {

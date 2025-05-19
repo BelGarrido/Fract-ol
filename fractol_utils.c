@@ -6,7 +6,7 @@
 /*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:40:15 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/19 12:30:51 by anagarri         ###   ########.fr       */
+/*   Updated: 2025/05/19 15:14:40 by anagarri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void build_mandelbrot(int x, int y, t_fractal *fractal)
 	i = 0;
 	z.x = 0.0;
 	z.y = 0.0;
-	c.x = rescale_map(x, -2, +2, WIDTH);
-	c.y	= rescale_map(y, -2, +2, HEIGHT);
+	c.x = rescale_map(x, -2, +2, fractal->width);
+	c.y	= rescale_map(y, -2, +2, fractal->height);
 	while ((i < iterations) && (z.x * z.x + z.y * z.y < 4))
 	{
 		temp_real = (z.x * z.x) - (z.y * z.y);
@@ -90,7 +90,7 @@ void build_mandelbrot(int x, int y, t_fractal *fractal)
 		z.x = temp_real + c.x;
 		i++;
 	}
-	if ((x >= 0 && x < WIDTH) && (y >= 0 && y < HEIGHT))
+	if ((x >= 0 && x < fractal->width) && (y >= 0 && y < fractal->height))
 	{
 		if (i == iterations)
 		{

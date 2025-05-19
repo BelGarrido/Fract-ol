@@ -6,7 +6,7 @@
 /*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:40:26 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/19 11:30:09 by anagarri         ###   ########.fr       */
+/*   Updated: 2025/05/19 15:09:22 by anagarri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void			build_julia(int x, int y, t_fractal *fractal);
 
 /*hooks*/
 void			esc_hook(mlx_key_data_t keydata, void *parameter);
+void			resize_hook(int32_t width, int32_t height, void* parameter);
 void			zoom_hook(double xdelta, double ydelta, void *parameter);
 
 //void draw_square (t_fractal fractal, uint32_t *pixel_buffer);
