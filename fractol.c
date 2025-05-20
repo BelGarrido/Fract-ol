@@ -6,7 +6,7 @@
 /*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:39:58 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/20 13:51:50 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/05/20 20:25:42 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,8 @@ int	main(int argc, char *argv[])
 		draw_fractal (&fractal);
 		mlx_key_hook(fractal.mlx, esc_hook, &fractal);
 		// zoom
-		//mlx_scroll_hook(fractal.mlx, zoom_hook, &fractal);
+		mlx_scroll_hook(fractal.mlx, zoom_hook, &fractal);
 		mlx_resize_hook(fractal.mlx, resize_hook, &fractal);
-		//mlx_loop_hook(fractal.mlx, render_frame, &fractal);
 		mlx_loop(fractal.mlx);
 	}
 	else
@@ -91,14 +90,18 @@ void esc_hook(mlx_key_data_t keydata, void *parameter)
 
 void zoom_hook(double xdelta, double ydelta, void *parameter)
 {
-	t_fractal *f = parameter;
-
+	t_fractal *f;
+	
+	f = (t_fractal *)parameter;
 	xdelta = xdelta * 1;
 	if (ydelta > 0)
 		 f->zoom *= 1.1;
     else if (ydelta < 0)
 		f->zoom /= 1.1;
+	mlx_delete_image(f->mlx, f->img);
+	f->img = mlx_new_image(f->mlx, f->width, f->height);
 	draw_fractal(f);
+	mlx_image_to_window(f->mlx, f->img, 0, 0);
 }
 
 void resize_hook(int32_t width, int32_t height, void* parameter)

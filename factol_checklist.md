@@ -29,13 +29,13 @@
 - [✅] [0 ... 799] -> [-2 ... 2]
 - [ ] Comportamiento fluido con la ventana (minimizar, cambiar, etc.)
 - [✅] ESC y botón de cerrar ventana funcionan correctamente
-- [ ] WIDTH and HEIGHT --> determinadas por eventos hook
+- [✅] WIDTH and HEIGHT --> determinadas por eventos hook
 
 ---
 
 ## 🔹 4. Interacción Obligatoria
 
-- [🧊] Rueda del ratón → zoom in/out   no esta bien implementado mi zoom: porque amplia las cantidad de pixeles a pintar --> Opción 2: Mantener el tamaño, pero cambiar la escala del sistema de coordenadas
+- [✅] Rueda del ratón → zoom in/out   no esta bien implementado mi zoom: porque amplia las cantidad de pixeles a pintar --> Opción 2: Mantener el tamaño, pero cambiar la escala del sistema de coordenadas
 - [ ] Zoom centrado en el puntero
 - [ ] Julia: modificar parámetros con movimiento del ratón
 - [ ] Activar/desactivar esa modificación con una tecla

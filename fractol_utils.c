@@ -6,7 +6,7 @@
 /*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:40:15 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/20 14:51:13 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/05/20 19:59:01 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 /*******Color fractal based in interactions*******/
 
-unsigned int color_a(double t, double i, double iterations)
+unsigned int	color_a(double t, double i, double iterations)
 {
 	unsigned int rgba;
 
@@ -31,7 +31,7 @@ unsigned int color_a(double t, double i, double iterations)
 }
 
 
-unsigned int color_b(double t, double i, double iterations)
+unsigned int	color_b(double t, double i, double iterations)
 {
 	unsigned int rgba;
 
@@ -51,7 +51,7 @@ unsigned int color_b(double t, double i, double iterations)
 	return rgba;
 }
 
-unsigned int color_c(double t, double i, double iterations)
+unsigned int	color_c(double t, double i, double iterations)
 {
 	unsigned int rgba;
 
@@ -67,18 +67,9 @@ unsigned int color_c(double t, double i, double iterations)
 	return rgba;
 }
 
-unsigned int	get_color_iterations(double i, double iterations)
+unsigned int	color_d(double i, double iterations)
 {
-	double t;
-	unsigned int rgba;
-
-	t = i/iterations;
-	//t = pow(t, 0.3);
-	rgba = color_c(t, i, iterations);
-
-	//printf("%u\n", rgba);
-	return (rgba);
-/* 	if(i <= iterations && i >= iterations/4)
+	if(i <= iterations && i >= iterations/4)
 	{
 		// Turquesa -- nearest to mandelbrot set
 		return (0xFFD9D93F);
@@ -109,15 +100,24 @@ unsigned int	get_color_iterations(double i, double iterations)
 		return (0xFF320000);
 	}
 	else
-	{
-		// Negro -- farest to mandelbrot set
 		return (0xFFFFFFFF);
-	} */
 }
 
-double	calculate_window(int32_t larger, int32_t shorter)
+unsigned int	get_color_iterations(double i, double iterations)
 {
-	return(((double)larger * 2) / (double)shorter);
+	double t;
+	unsigned int rgba;
+
+	t = i/iterations;
+	//t = pow(t, 0.3);
+	rgba = color_c(t, i, iterations);
+
+	return (rgba);
+}
+
+double	calculate_window(int32_t larger, int32_t shorter, double zoom)
+{
+	return(((double)larger * (+2/zoom)) / (double)shorter);
 }
 
 t_complex maintain_proportions(t_fractal *fractal, int x, int y)
@@ -127,17 +127,15 @@ t_complex maintain_proportions(t_fractal *fractal, int x, int y)
 	
 	if (fractal->height < fractal->width)
 	{
-		new = calculate_window(fractal->width, fractal->height);
-		c.y = rescale_map(y, -2, +2, fractal->height);
+		new = calculate_window(fractal->width, fractal->height, fractal->zoom);
+		c.y = rescale_map(y, (-2/fractal->zoom), (+2/fractal->zoom), fractal->height);
 		c.x = rescale_map(x, -new, +new, fractal->width);
-		//printf("height < width\n new: %f, fractal_width: %i, fractal_height: %i\n", new, fractal->width, fractal->height);
 	}
 	else
 	{
-		new = calculate_window(fractal->height, fractal->width);
-		c.x = rescale_map(x, -2, +2, fractal->width);
+		new = calculate_window(fractal->height, fractal->width, fractal->zoom);
+		c.x = rescale_map(x, (-2/fractal->zoom), (+2/fractal->zoom), fractal->width);
 		c.y = rescale_map(y, -new, +new, fractal->height);
-		//printf("hwidth < height\n new: %f, fractal_width: %i, fractal_height: %i\n", new, fractal->width, fractal->height);
 	}
 	return (c);
 }

@@ -6,7 +6,7 @@
 /*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:40:26 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/20 13:32:20 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/05/20 19:58:18 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct	s_complex
 /*string utils*/
 int				ft_strncmp(char *s1, char *s2, size_t n);
 void			ft_putstr_fd(char *s, int fd);
-double				ft_atof(const char *s);
+double			ft_atof(const char *s);
 
 /*math*/
 double			rescale_map(double number, double new_min, double new_max, double old_max);
