@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:40:15 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/19 15:14:40 by anagarri         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:51:13 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,68 @@
 #include "fractol.h"
 
 /*******Color fractal based in interactions*******/
+
+unsigned int color_a(double t, double i, double iterations)
+{
+	unsigned int rgba;
+
+	rgba = 0;
+	if(i == iterations)
+		return (0x000000FF);
+	t = pow(t, 0.3);
+	rgba |= ((unsigned int)(sin(t * 6.28318) * 127 + 128) << 24);        // R
+	rgba |= ((unsigned int)(sin(t * 6.28318 + 2.094) * 127 + 128) << 16); // G
+	rgba |= ((unsigned int)(sin(t * 6.28318 + 4.188) * 127 + 128) << 8);
+	rgba |=  255;
+	return (rgba);
+}
+
+
+unsigned int color_b(double t, double i, double iterations)
+{
+	unsigned int rgba;
+
+	if (i == iterations)
+		return 0x000000FF;
+
+	t = pow(t, 0.3);
+	t = t * t; // puedes cambiar a t = t * t * t para más contraste
+
+	rgba = 0;
+
+	rgba |= ((unsigned int)(sin(t * 6.28318) * 127 + 128) << 24); // R
+	rgba |= ((unsigned int)(sin(t * 6.28318 + 2.094) * 127 + 128) << 16); // G
+	rgba |= ((unsigned int)(sin(t * 6.28318 + 4.188) * 127 + 128) << 8); // B
+	rgba |= 255;
+
+	return rgba;
+}
+
+unsigned int color_c(double t, double i, double iterations)
+{
+	unsigned int rgba;
+
+	if (i == iterations)
+		return 0x000000FF;
+
+	rgba = 0;
+	rgba |= ((unsigned int)(9 * (1 - t) * t * t * t * 255) << 24); // R
+	rgba |= ((unsigned int)(15 * (1 - t) * (1 - t) * t * t * 255) << 16); // G
+	rgba |= ((unsigned int)(8.5 * (1 - t) * (1 - t) * t * 255) << 8); // B
+	rgba |= 255;
+
+	return rgba;
+}
+
 unsigned int	get_color_iterations(double i, double iterations)
 {
 	double t;
 	unsigned int rgba;
 
 	t = i/iterations;
-	rgba = 0;
+	//t = pow(t, 0.3);
+	rgba = color_c(t, i, iterations);
 
-	rgba |= (((unsigned int)(255 * (9 * (1 - t) * t * t * t)) & 0xFF) << 24); //R 
-	rgba |= (((unsigned int)(255 * (15 * (1 - t) * (1 - t) * t * t)) & 0xFF) << 16); //G
-	rgba |= (((unsigned int)(255 * (8.5 * (1 - t) * (1 - t) * (1 - t) * t)) & 0xFF) << 8); //B
-	rgba |=  255;
 	//printf("%u\n", rgba);
 	return (rgba);
 /* 	if(i <= iterations && i >= iterations/4)
@@ -65,6 +115,33 @@ unsigned int	get_color_iterations(double i, double iterations)
 	} */
 }
 
+double	calculate_window(int32_t larger, int32_t shorter)
+{
+	return(((double)larger * 2) / (double)shorter);
+}
+
+t_complex maintain_proportions(t_fractal *fractal, int x, int y)
+{
+	t_complex c;
+	double new;
+	
+	if (fractal->height < fractal->width)
+	{
+		new = calculate_window(fractal->width, fractal->height);
+		c.y = rescale_map(y, -2, +2, fractal->height);
+		c.x = rescale_map(x, -new, +new, fractal->width);
+		//printf("height < width\n new: %f, fractal_width: %i, fractal_height: %i\n", new, fractal->width, fractal->height);
+	}
+	else
+	{
+		new = calculate_window(fractal->height, fractal->width);
+		c.x = rescale_map(x, -2, +2, fractal->width);
+		c.y = rescale_map(y, -new, +new, fractal->height);
+		//printf("hwidth < height\n new: %f, fractal_width: %i, fractal_height: %i\n", new, fractal->width, fractal->height);
+	}
+	return (c);
+}
+
 /*******mandelbrot*******/
 	//	f(z) = z^2 + c
 	//	z = 0
@@ -81,8 +158,8 @@ void build_mandelbrot(int x, int y, t_fractal *fractal)
 	i = 0;
 	z.x = 0.0;
 	z.y = 0.0;
-	c.x = rescale_map(x, -2, +2, fractal->width);
-	c.y	= rescale_map(y, -2, +2, fractal->height);
+	c.x = maintain_proportions(fractal, x, y).x;
+	c.y	= maintain_proportions(fractal, x, y).y;
 	while ((i < iterations) && (z.x * z.x + z.y * z.y < 4))
 	{
 		temp_real = (z.x * z.x) - (z.y * z.y);
@@ -91,15 +168,7 @@ void build_mandelbrot(int x, int y, t_fractal *fractal)
 		i++;
 	}
 	if ((x >= 0 && x < fractal->width) && (y >= 0 && y < fractal->height))
-	{
-		if (i == iterations)
-		{
-			mlx_put_pixel(fractal->img, x, y, 0x000000FF);
-
-		}
-		else
-			mlx_put_pixel(fractal->img, x, y, get_color_iterations(i, iterations));
-	}
+		mlx_put_pixel(fractal->img, x, y, get_color_iterations(i, iterations));
 	else
 		ft_putstr_fd("Error painting pixels\n", 1);
 }
@@ -120,9 +189,8 @@ void build_julia(int x, int y, t_fractal *fractal)
 	i = 0;
 	c.x = fractal->julia_cx;
 	c.y = fractal->julia_cy;
-
-	z.x = rescale_map(x, -2, +2, WIDTH);
-	z.y	= rescale_map(y, -2, +2, HEIGHT);
+	z.x = maintain_proportions(fractal, x, y).x;
+	z.y	= maintain_proportions(fractal, x, y).y;
 	while ((i < iterations) && (z.x * z.x + z.y * z.y < 4))
 	{
 		temp_real = (z.x * z.x) - (z.y * z.y);
@@ -130,15 +198,8 @@ void build_julia(int x, int y, t_fractal *fractal)
 		z.x = temp_real + c.x;
 		i++;
 	}
-	if((x >= 0 && x < WIDTH) && (y >= 0 && y < HEIGHT))
-	{
-		if (i == iterations)
-		{
-			mlx_put_pixel(fractal->img, x, y, 0x0000FFFF);
-		}
-		else
-			mlx_put_pixel(fractal->img, x, y, get_color_iterations(i, iterations));
-	}
+	if ((x >= 0 && x < fractal->width) && (y >= 0 && y < fractal->height))
+		mlx_put_pixel(fractal->img, x, y, get_color_iterations(i, iterations));
 	else
 		ft_putstr_fd("Error painting pixels\n", 1);
 }	

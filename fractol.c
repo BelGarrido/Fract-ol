@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:39:58 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/19 15:16:41 by anagarri         ###   ########.fr       */
+/*   Updated: 2025/05/20 13:51:50 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int draw_fractal (t_fractal *fractal)
+int draw_fractal(t_fractal *fractal)
 {
 	int y;
 	int x;
@@ -49,7 +49,6 @@ int	main(int argc, char *argv[])
 			fractal.julia_cx = ft_atof(argv[2]);
 			fractal.julia_cy = ft_atof(argv[3]);
 		}
-		printf("x: %f // y: %f\n", fractal.julia_cx, fractal.julia_cy);
 		fractal.zoom = 1.0;
 		fractal.width = WIDTH;
 		fractal.height = HEIGHT;
@@ -60,7 +59,6 @@ int	main(int argc, char *argv[])
 			ft_putstr_fd("Error: no se pudo crear la imagen\n", 2);
 			exit(EXIT_FAILURE);
 		}
-
 		mlx_image_to_window(fractal.mlx, fractal.img, 0, 0);
 		draw_fractal (&fractal);
 		mlx_key_hook(fractal.mlx, esc_hook, &fractal);
@@ -106,7 +104,7 @@ void zoom_hook(double xdelta, double ydelta, void *parameter)
 void resize_hook(int32_t width, int32_t height, void* parameter)
 {
 	t_fractal *f;
-	printf("resize function\n");
+	//printf("resize function\n");
 	f = (t_fractal *)parameter;
 	f->height = height;
 	f->width = width;

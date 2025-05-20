@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:40:26 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/19 15:09:22 by anagarri         ###   ########.fr       */
+/*   Updated: 2025/05/20 13:32:20 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
 #include "MLX42.h"
 
 #define WIDTH 800
-#define HEIGHT 800
+#define HEIGHT 600
 
 typedef struct s_fractal
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
-	int			width;
-    int			height;
+	int32_t		width;
+    int32_t		height;
 	double		zoom;
 	int 		type;
 	double		julia_cx;
