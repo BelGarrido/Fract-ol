@@ -6,7 +6,7 @@
 /*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:40:15 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/20 19:59:01 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/05/21 12:04:21 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ unsigned int	color_b(double t, double i, double iterations)
 
 	t = pow(t, 0.3);
 	t = t * t; // puedes cambiar a t = t * t * t para más contraste
-
 	rgba = 0;
-
 	rgba |= ((unsigned int)(sin(t * 6.28318) * 127 + 128) << 24); // R
 	rgba |= ((unsigned int)(sin(t * 6.28318 + 2.094) * 127 + 128) << 16); // G
 	rgba |= ((unsigned int)(sin(t * 6.28318 + 4.188) * 127 + 128) << 8); // B
@@ -57,50 +55,33 @@ unsigned int	color_c(double t, double i, double iterations)
 
 	if (i == iterations)
 		return 0x000000FF;
-
 	rgba = 0;
 	rgba |= ((unsigned int)(9 * (1 - t) * t * t * t * 255) << 24); // R
 	rgba |= ((unsigned int)(15 * (1 - t) * (1 - t) * t * t * 255) << 16); // G
 	rgba |= ((unsigned int)(8.5 * (1 - t) * (1 - t) * t * 255) << 8); // B
 	rgba |= 255;
-
 	return rgba;
 }
 
-unsigned int	color_d(double i, double iterations)
+unsigned int	color_d(double t, double i, double iterations)
 {
+	t = t * 1;
+	if (i == iterations)
+		return 0x000000FF;
 	if(i <= iterations && i >= iterations/4)
-	{
-		// Turquesa -- nearest to mandelbrot set
-		return (0xFFD9D93F);
-	}
+		return (0x3FD9D9FF);
 	else if(i <= iterations/4 && i >= iterations/8)
-	{	
-		//Azul oscuro
-		return (0xFFD14634);
-	}
+		return (0x3446D1FF);
 	else if(i <= iterations/8 && i >= iterations/12)
-	{
-		// Morado
-		return (0xFFDC2C98);
-	}
+		return (0x982CDCFF);
 	else if(i <= iterations/12 && i >= iterations/14)
-	{
-		//Magenta
-		return (0xFFBC2CDC);
-	}
+		return (0xDC2CBCFF);
 	else if(i <= iterations/14 && i >= iterations/16)
-	{
-		//Azul menos oscuro
-		return (0xFF640000);
-	}
+		return (0x000064FF);
 	else if(i <= iterations/16 && i >= iterations/20)
-	{
-		//Azul oscuro
-		return (0xFF320000);
-	}
+		return (0x000032FF);
 	else
-		return (0xFFFFFFFF);
+		return (0x000000FF);
 }
 
 unsigned int	get_color_iterations(double i, double iterations)
@@ -110,8 +91,7 @@ unsigned int	get_color_iterations(double i, double iterations)
 
 	t = i/iterations;
 	//t = pow(t, 0.3);
-	rgba = color_c(t, i, iterations);
-
+	rgba = color_a(t, i, iterations);
 	return (rgba);
 }
 
@@ -171,10 +151,10 @@ void build_mandelbrot(int x, int y, t_fractal *fractal)
 		ft_putstr_fd("Error painting pixels\n", 1);
 }
 	
-/*******mandelbrot*******/
+/*******julia*******/
 	//	f(z) = z^2 + c
-	//	z = 0
-	//	c = point
+	//	z = point
+	//	c = constant
 void build_julia(int x, int y, t_fractal *fractal)
 {
 	t_complex	z;
@@ -226,9 +206,7 @@ int	ft_strncmp(char *s1, char *s2, size_t n)
 		i++;
 	}
 	if (i < n)
-	{
 		return (str1[i] - str2[i]);
-	}
 	return (0);
 }
 
@@ -238,9 +216,7 @@ void	ft_putstr_fd(char *s, int fd)
 	int	i;
 
 	if(!s || fd < 0)
-	{
 		return;
-	}
 	i = 0;
 	while (s[i] != '\0')
 	{

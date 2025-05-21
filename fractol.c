@@ -6,7 +6,7 @@
 /*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:39:58 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/20 20:25:42 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/05/21 13:09:55 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	main(int argc, char *argv[])
 		mlx_scroll_hook(fractal.mlx, zoom_hook, &fractal);
 		mlx_resize_hook(fractal.mlx, resize_hook, &fractal);
 		mlx_loop(fractal.mlx);
+		mlx_terminate(fractal.mlx);
 	}
 	else
 	{
@@ -74,18 +75,13 @@ int	main(int argc, char *argv[])
 	}
 }
 
-/* ESC debe cerrar la ventana y salir del programa de manera limpia.
-	1- escribir la función que maneja la tecla ESC
-	* Callback function used to handle keypresses.
-	* 
-	* @param[in] keydata The callback data, contains info on key, action, ...
-	* @param[in] parameter s un puntero que pasas tú (en este caso, al struct t_fractal)..
-	*/
 void esc_hook(mlx_key_data_t keydata, void *parameter)
 {
 	t_fractal *f = (t_fractal *)parameter;
 	if(keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+	{
 		mlx_close_window(f->mlx);
+	}	
 }
 
 void zoom_hook(double xdelta, double ydelta, void *parameter)
@@ -116,22 +112,3 @@ void resize_hook(int32_t width, int32_t height, void* parameter)
 	draw_fractal(f);
 	mlx_image_to_window(f->mlx, f->img, 0, 0);
 }
-
-
-/* void zoom_hook(double xdelta, double ydelta, void *parameter)
-{
-	t_fractal *f = (t_fractal *)parameter;
-
-	xdelta = xdelta * 1;
-	if (ydelta > 0)
-	{
-		 f->zoom *= 1.1;
-	}
-    else if (ydelta < 0)
-	{
-		f->zoom /= 1.1;
-	}
-	uint32_t *pixel_buffer = (uint32_t *)f->img->pixels;
-	draw_square(*f, pixel_buffer);
-	redraw_fractal(f); // TODO
-} */
