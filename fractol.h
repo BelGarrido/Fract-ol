@@ -6,7 +6,7 @@
 /*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:40:26 by anagarri          #+#    #+#             */
-/*   Updated: 2025/07/16 12:18:07 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/07/16 12:37:40 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_complex
 	double	y;
 }				t_complex;
 
-/*string utils*/
+/*fractol_utils*/
 int				ft_strncmp(char *s1, char *s2, size_t n);
 void			ft_putstr_fd(char *s, int fd);
 double			ft_atof(const char *s);
@@ -63,6 +63,14 @@ void			zoom_hook(double xdelta, double ydelta, void *parameter);
 double			calculate_window(int32_t larger, int32_t shorter, double zoom);
 t_complex		maintain_proportions(t_fractal *fractal, int x, int y);
 int				draw_fractal(t_fractal *fractal);
-unsigned int	get_color_iterations(double i, double iterations);
+
+unsigned int	get_color_iterations_julia(double i, double iterations);
+unsigned int	get_color_iterations_mandelbrot(double i, double iterations);
+
+/* color */
+unsigned int	color_a(double t, double i, double iterations);
+unsigned int	color_b(double t, double i, double iterations);
+unsigned int	color_c(double t, double i, double iterations);
+unsigned int	color_d(double t, double i, double iterations);
 
 #endif
