@@ -6,7 +6,7 @@
 /*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:20:49 by anagarri@st       #+#    #+#             */
-/*   Updated: 2025/07/16 11:28:38 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/07/16 12:01:26 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,36 @@ t_complex	maintain_proportions(t_fractal *fractal, int x, int y)
 
 	if (fractal->height < fractal->width)
 	{
-		new = calculate_window(fractal->width, fractal->height, fractal->zoom);
+		new = calculate_window(fractal->width, fractal->height,
+				fractal->zoom);
 		c.y = rescale_map(y, (-2 / fractal->zoom),
 				(+2 / fractal->zoom), fractal->height);
 		c.x = rescale_map(x, -new, +new, fractal->width);
 	}
 	else
 	{
-		new = calculate_window(fractal->height, fractal->width, fractal->zoom);
+		new = calculate_window(fractal->height, fractal->width,
+				fractal->zoom);
 		c.x = rescale_map(x, (-2 / fractal->zoom),
 				(+2 / fractal->zoom), fractal->width);
 		c.y = rescale_map(y, -new, +new, fractal->height);
 	}
 	return (c);
+}
+
+double	calculate_window(int32_t larger, int32_t shorter, double zoom)
+{
+	return (((double)larger * (+2 / zoom)) / (double)shorter);
+}
+
+/*******recale map [0 ... 799] -> [-2 ... 2]*******/
+double	rescale_map(double number, double new_min, double new_max,
+		double old_max)
+{
+	double	result;
+
+	result = (new_max - new_min) * (number - 0) / (old_max - 0) + new_min;
+	return (result);
 }
 
 /*******mandelbrot*******/

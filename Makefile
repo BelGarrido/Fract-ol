@@ -2,7 +2,7 @@
 NAME = fractol
 
 #Archivos fuente
-SRC = fractol.c fractol_utils.c 
+SRC = fractol.c fractol_utils.c maths.c color.c
 OBJ = $(SRC:.c=.o)
 
 #MLX42 local
@@ -31,7 +31,6 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-
 
 
 #gcc main.c MLX42/build/libmlx42.a -IMLX42/include -ldl -lglfw -pthread -lm
