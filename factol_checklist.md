@@ -7,7 +7,8 @@
 ## 🔹 1. Requisitos Generales
 
 - [✅] Solo se permite el uso de la librería **MLX42**
-- [ ] Sin fugas de memoria (valgrind clean)
+- [✅] Sin fugas de memoria (valgrind clean)
+- [ ] Usar errores de perror etc Escribir Error\n en stderr
 - [ ] Código norminette compliant
 - [✅] `make` compila sin errores ni warnings
 - [✅] `ESC` o cerrar ventana finaliza el programa correctamente
@@ -27,7 +28,7 @@
 - [✅] Ventana se abre correctamente
 - [✅] Se muestra el fractal seleccionado
 - [✅] [0 ... 799] -> [-2 ... 2]
-- [ ] Comportamiento fluido con la ventana (minimizar, cambiar, etc.)
+- [✅] Comportamiento fluido con la ventana (minimizar, cambiar, etc.)
 - [✅] ESC y botón de cerrar ventana funcionan correctamente
 - [✅] WIDTH and HEIGHT --> determinadas por eventos hook
 

@@ -2,7 +2,7 @@
 NAME = fractol
 
 #Archivos fuente
-SRC = fractol.c fractol_utils.c maths.c
+SRC = fractol.c fractol_utils.c 
 OBJ = $(SRC:.c=.o)
 
 #MLX42 local

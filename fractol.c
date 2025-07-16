@@ -6,7 +6,7 @@
 /*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:39:58 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/21 13:09:55 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/06/04 12:26:10 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,32 @@ int draw_fractal(t_fractal *fractal)
 	return 0;
 }
 
+/* void init_(t_fractal *fractal)
+{
+	fractal->zoom = 1.0;
+	fractal->width = WIDTH;
+	fractal->height = HEIGHT;
+	fractal->mlx = mlx_init(fractal->width, fractal->height, "Fract-ol", true);
+	if (!fractal->mlx)
+	{
+		ft_putstr_fd("Error: no se pudo crear la imagen\n", 2);
+		exit(EXIT_FAILURE);
+	}	
+	fractal->img = mlx_new_image(fractal->mlx, fractal->width, fractal->height);
+	if (!fractal->img)
+	{
+		ft_putstr_fd("Error: no se pudo crear la imagen\n", 2);
+		exit(EXIT_FAILURE);
+	}
+} */
+
 int	main(int argc, char *argv[])
 {
+	t_fractal	fractal;
+	
 	if ((argc == 2 && !ft_strncmp(argv[1], "mandelbrot", 10))
 	|| (argc == 4 && !ft_strncmp(argv[1], "julia", 5)))
 	{
-		t_fractal	fractal;
-		
 		if (!ft_strncmp(argv[1], "mandelbrot", 10))
 			fractal.type = 1;
 		else if (!ft_strncmp(argv[1], "julia", 5))
@@ -66,12 +85,13 @@ int	main(int argc, char *argv[])
 		mlx_scroll_hook(fractal.mlx, zoom_hook, &fractal);
 		mlx_resize_hook(fractal.mlx, resize_hook, &fractal);
 		mlx_loop(fractal.mlx);
+		mlx_delete_image(fractal.mlx, fractal.img);   // liberar la última imagen
 		mlx_terminate(fractal.mlx);
 	}
 	else
 	{
 		ft_putstr_fd("Please enter:\n \t./fractol mandelbrot\n\tor\n \t./fractol julia valueX valueY", 1);
-		exit(EXIT_FAILURE );
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -80,6 +100,7 @@ void esc_hook(mlx_key_data_t keydata, void *parameter)
 	t_fractal *f = (t_fractal *)parameter;
 	if(keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
+		mlx_delete_image(f->mlx, f->img);   // liberar la última imagen
 		mlx_close_window(f->mlx);
 	}	
 }
