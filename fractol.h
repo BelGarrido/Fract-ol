@@ -24,7 +24,7 @@
 
 	//	mandelbrot = 1
 	//	julia = 2
-	
+
 typedef struct s_fractal
 {
 	mlx_t		*mlx;

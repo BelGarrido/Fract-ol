@@ -1,43 +1,34 @@
-#Nombre del ejecutable
-NAME = fractol
+NAME := fractol
+SRC := fractol.c fractol_utils.c maths.c color.c hooks.c
+OBJ := $(SRC:.c=.o)
 
-#Archivos fuente
-SRC = fractol.c fractol_utils.c maths.c color.c hooks.c
-OBJ = $(SRC:.c=.o)
+MLX_DIR := MLX42
+MLX_INC := $(MLX_DIR)/include/MLX42
+MLX_LIB = $(MLX_DIR)/build/libmlx42.a
 
-#MLX42 local
-MLX_DIR = MLX42
-MLX_INC = $(MLX_DIR)/include/MLX42
-MLX_LIB = $(MLX_DIR)/build
+CC := gcc
+CFLAGS := -Wall -Wextra -Werror -I$(MLX_INC)
+LDFLAGS = -ldl -lglfw -pthread -lm
 
-#Compilación y flags
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I$(MLX_INC)
-LDFLAGS = -L$(MLX_LIB) -lmlx42 -ldl -lglfw -pthread -lm
+.PHONY: all clean fclean re
 
-# Compilar cada .c a .o
+all: $(NAME)
+
+$(NAME): $(OBJ) $(MLX_LIB)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIB) $(LDFLAGS) -o $(NAME)
+
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 	
-# Compilar y enlazar
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
+$(MLX_LIB):
+	cmake -B $(MLX_DIR)/build $(MLX_DIR)
+	$(MAKE) -C $(MLX_DIR)/build
 
-# Limpiar archivos compilados
 clean:
 	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
+	@$(MAKE) -C $(MLX_DIR)/build clean
 
 re: fclean all
-
-
-#gcc main.c MLX42/build/libmlx42.a -IMLX42/include -ldl -lglfw -pthread -lm
-
-#Busca los headers en MLX42/include además de los directorios estándar
-#	I./MLX42/include
-#Busca librerías compiladas en esta carpeta
-#	-L./MLX42/build
-#Que archivo enlazar: busca un archivo llamado libMLX42.a (o .so) en los directorios especificados con -L
-#	-lMLX42
