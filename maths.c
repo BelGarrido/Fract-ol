@@ -6,7 +6,7 @@
 /*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:20:49 by anagarri@st       #+#    #+#             */
-/*   Updated: 2025/07/16 12:01:26 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/07/21 18:34:50 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ void	build_mandelbrot(int x, int y, t_fractal *fractal)
 	int			i;
 	int			iterations;
 
-	iterations = 400;
-	i = 0;
 	z.x = 0.0;
 	z.y = 0.0;
 	c.x = maintain_proportions(fractal, x, y).x;
 	c.y = maintain_proportions(fractal, x, y).y;
+	i = 0;
+	iterations = 400;
 	while ((i < iterations) && (z.x * z.x + z.y * z.y < 4))
 	{
 		temp_real = (z.x * z.x) - (z.y * z.y);

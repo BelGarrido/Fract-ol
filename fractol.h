@@ -6,7 +6,7 @@
 /*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:40:26 by anagarri          #+#    #+#             */
-/*   Updated: 2025/07/16 12:37:40 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/07/21 10:48:53 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # define WIDTH 800
 # define HEIGHT 600
 
+	//	mandelbrot = 1
+	//	julia = 2
+	
 typedef struct s_fractal
 {
 	mlx_t		*mlx;
@@ -32,8 +35,6 @@ typedef struct s_fractal
 	int			type;
 	double		julia_cx;
 	double		julia_cy;
-	//	mandelbrot = 1
-	//	julia = 2
 }				t_fractal;
 
 	//	eje real
