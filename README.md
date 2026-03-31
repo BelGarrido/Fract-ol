@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <em>Part of the 42 Common Core curriculum - Rank 04</em>
+  <em>Part of the 42 Common Core curriculum - Rank 02</em>
 </p>
 
 
