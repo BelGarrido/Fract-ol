@@ -58,8 +58,8 @@ void	generate_fractal(t_fractal *fractal)
 	mlx_image_to_window(fractal->mlx, fractal->img, 0, 0);
 	draw_fractal (fractal);
 	mlx_key_hook(fractal->mlx, esc_hook, fractal);
-	mlx_scroll_hook(fractal->mlx, zoom_hook, &fractal);
-	mlx_resize_hook(fractal->mlx, resize_hook, &fractal);
+	mlx_scroll_hook(fractal->mlx, zoom_hook, fractal);
+	mlx_resize_hook(fractal->mlx, resize_hook, fractal);
 	mlx_loop(fractal->mlx);
 	mlx_delete_image(fractal->mlx, fractal->img);
 	mlx_terminate(fractal->mlx);
