@@ -13,7 +13,6 @@
   <em>Part of the 42 Common Core curriculum - Rank 04</em>
 </p>
 
----
 
 ## Project Introduction
 
@@ -126,13 +125,11 @@ The "Escape Time" gives us a number (the iteration count). We use this number as
 
 This implementation was guided by detailed visual guides on the Mandelbrot Set [Part 1](https://www.youtube.com/watch?v=FFftmWSzgmk) and [Part 2](https://www.youtube.com/watch?v=NGMRB4O922I) and the [Julia set](https://www.youtube.com/watch?v=oCkQ7WK7vuY).
 
----
 
-## 📜 License
+## License
 
 This project is part of the 42 curriculum. Please refer to 42's academic integrity guidelines.
 
----
 
 <p align="center">
   <img src="https://img.shields.io/badge/42-Málaga-purple?style=flat-square" alt="42 Málaga"/>
