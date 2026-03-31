@@ -76,4 +76,6 @@ To compile and run `fract-ol`, follow these steps:
 
 ## Visuals
 
-*need to add my pictures, I know*
+### Mandelbrot Set
+
+<img src="./img/fractol_mandelbrot.png" alt="Mandelbrot Set" width="800"/>
