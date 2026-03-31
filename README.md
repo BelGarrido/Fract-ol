@@ -119,7 +119,6 @@ The "Escape Time" gives us a number (the iteration count). We use this number as
 *   **Fast escape:** Bright colors (the "outside" of the fractal).
 *   **Slow escape:** Darker, detailed colors (the "edges").
 *   **No escape:** Solid black (the "heart" of the fractal).
----
 
 ### Acknowledgments
 
