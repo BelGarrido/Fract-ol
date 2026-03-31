@@ -107,3 +107,6 @@ The "Escape Time" gives us a number (the iteration count). We use this number as
 *   **Fast escape:** Bright colors (the "outside" of the fractal).
 *   **Slow escape:** Darker, detailed colors (the "edges").
 *   **No escape:** Solid black (the "heart" of the fractal).
+
+### Documentation 
+This implementation was guided by detailed visual guides on the Mandelbrot Set [Part 1](https://www.youtube.com/watch?v=FFftmWSzgmk) and [Part 2](https://www.youtube.com/watch?v=NGMRB4O922I) and the [Julia set](https://www.youtube.com/watch?v=oCkQ7WK7vuY).
