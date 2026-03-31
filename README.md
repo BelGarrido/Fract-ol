@@ -1,6 +1,19 @@
 # fract-ol
+<p align="center">
+  <img src="https://img.shields.io/badge/Language-C-blue?style=for-the-badge&logo=c" alt="C"/>
+  <img src="https://img.shields.io/badge/Graphics-MLX42-orange?style=for-the-badge" alt="MLX42"/>
+  <img src="https://img.shields.io/badge/42-Project-purple?style=for-the-badge" alt="42 Project"/>
+</p>
 
-![C](https://img.shields.io/badge/language-C-blue.svg) ![42 School](https://img.shields.io/badge/42%20School-project-purple.svg)
+<p align="center">
+  <strong>A minimal ray tracing engine written in C</strong>
+</p>
+
+<p align="center">
+  <em>Part of the 42 Common Core curriculum - Rank 04</em>
+</p>
+
+---
 
 ## Project Introduction
 
