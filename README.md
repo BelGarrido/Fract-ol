@@ -79,3 +79,31 @@ To compile and run `fract-ol`, follow these steps:
 ### Mandelbrot Set
 
 <img src="./img/fractol_mandelbrot.png" alt="Mandelbrot Set" width="800"/>
+
+## How Fractals Are Rendered
+
+### 1. The Coordinate Mapping (Linear Interpolation)
+
+A computer screen is a grid of pixels (e.g., $800 \times 800$), but a fractal exists in a mathematical "plane" (usually between $-2$ and $+2$).
+
+**The Challenge:** How do we know which mathematical point corresponds to pixel $(400, 400)$?
+
+**The Solution:** We use Linear Interpolation. For every pixel, the program calculates its equivalent position in the complex plane. If the pixel is in the dead center of your screen, the algorithm maps it to $0 + 0i$. This allows the math to "zoom" by simply shrinking the range of the complex plane we are looking at.
+
+### 2. The "Escape Time" Algorithm
+
+Once we have a complex mathematical point (let's call it $c$), we need to decide what color to paint the pixel. We do this by running a repetitive calculation:
+
+$$z_{n+1} = z_n^2 + c$$
+
+**The Iteration:** we start with $z = 0$ and keep squaring it and adding $c$ over and over.
+**The Escape:** If the value of $z$ grows larger than 2, it has "escaped" to infinity. We stop the loop and count how many steps it took.
+**The Set:** If we reach our limit (e.g., 100 iterations) and the value is still small, we assume that point is "trapped" in the fractal and color it black.
+
+### 3. Rendering & Coloring
+
+The "Escape Time" gives us a number (the iteration count). We use this number as an index for our color palette.
+
+*   **Fast escape:** Bright colors (the "outside" of the fractal).
+*   **Slow escape:** Darker, detailed colors (the "edges").
+*   **No escape:** Solid black (the "heart" of the fractal).
