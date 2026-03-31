@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <strong>A minimal ray tracing engine written in C</strong>
+  <strong>A graphical explorer in C for rendering the Mandelbrot and Julia sets.</strong>
 </p>
 
 <p align="center">
